@@ -508,12 +508,12 @@ require('lazy').setup({
     lazy = false,
     keys = {
       {
-        '<leader>f',
+        '<leader>fm',
         function()
           require('conform').format { async = true, lsp_fallback = true }
         end,
         mode = '',
-        desc = '[F]ormat buffer',
+        desc = '[F]or[m]at buffer',
       },
     },
     opts = {
@@ -536,6 +536,13 @@ require('lazy').setup({
         -- You can use a sub-list to tell conform to run *until* a formatter
         -- is found.
         javascript = { { 'prettierd' } },
+        typescript = { { 'prettierd' } },
+        scss = { { 'prettierd' } },
+        css = { { 'prettierd' } },
+        html = { { 'prettierd' } },
+        json = { { 'prettierd' } },
+        typescriptreact = { { 'prettierd' } },
+        javascriptreact = { { 'prettierd' } },
       },
     },
   },
