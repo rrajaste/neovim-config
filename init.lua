@@ -66,6 +66,10 @@ vim.opt.scrolloff = 8
 vim.opt.hlsearch = true
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
+-- Git
+vim.keymap.set('n', '<leader>bl', '<cmd>lua require"gitsigns".blame_line{full=true}<CR>', { desc = '[B]lame [L]ine' })
+vim.keymap.set('n', '<leader>tb', '<cmd>Gitsigns toggle_current_line_blame<CR>', { desc = '[T]oggle [B]lame' })
+
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
