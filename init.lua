@@ -97,6 +97,8 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 vim.keymap.set('n', '<leader>y', '"+y', { desc = 'Yank to clipboard' })
 vim.keymap.set('v', '<leader>y', '"+y', { desc = 'Yank to clipboard' })
 
+vim.keymap.set('n', '<leader>sa', '<cmd>wa<CR>', { desc = '[S]ave [A]ll' })
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
@@ -144,7 +146,6 @@ require('lazy').setup({
   --  This is equivalent to:
   --    require('Comment').setup({})
 
-  -- "gc" to comment visual regions/lines
   {
     'numToStr/Comment.nvim',
     opts = {},
@@ -154,6 +155,11 @@ require('lazy').setup({
       end, { desc = 'Toggle comment' })
       vim.keymap.set('v', '<leader>/', "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>", { desc = 'Toggle comment' })
     end,
+  },
+
+  -- Fixes commenting embedded files such as TSX.
+  {
+    'JoosepAlviste/nvim-ts-context-commentstring',
   },
 
   -- Here is a more advanced example where we pass configuration
