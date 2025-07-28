@@ -147,19 +147,10 @@ require('lazy').setup({
   --    require('Comment').setup({})
 
   {
-    'numToStr/Comment.nvim',
+    'folke/ts-comments.nvim',
     opts = {},
-    config = function()
-      vim.keymap.set('n', '<leader>/', function()
-        require('Comment.api').toggle.linewise.current()
-      end, { desc = 'Toggle comment' })
-      vim.keymap.set('v', '<leader>/', "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>", { desc = 'Toggle comment' })
-    end,
-  },
-
-  -- Fixes commenting embedded files such as TSX.
-  {
-    'JoosepAlviste/nvim-ts-context-commentstring',
+    event = 'VeryLazy',
+    enabled = vim.fn.has 'nvim-0.10.0' == 1,
   },
 
   -- Here is a more advanced example where we pass configuration
@@ -753,6 +744,8 @@ require('lazy').setup({
           toggle = '<leader>st',
         },
       }
+
+      require('mini.comment').setup {}
 
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,
