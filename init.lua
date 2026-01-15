@@ -567,7 +567,7 @@ require('lazy').setup({
           lsp_format_opt = 'fallback'
         end
         return {
-          timeout_ms = 500,
+          timeout_ms = 1000,
           lsp_format = lsp_format_opt,
         }
       end,
@@ -578,14 +578,14 @@ require('lazy').setup({
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
         -- javascript = { "prettierd", "prettier", stop_after_first = true },
-        javascript = { 'prettierd' },
-        typescript = { 'prettierd' },
-        scss = { 'prettierd' },
-        css = { 'prettierd' },
-        html = { 'prettierd' },
-        json = { 'prettierd' },
-        typescriptreact = { 'prettierd' },
-        javascriptreact = { 'prettierd' },
+        javascript = { 'prettier_d_slim', 'prettier_d', stop_after_first = true },
+        typescript = { 'prettier_d_slim', 'prettier_d', stop_after_first = true },
+        scss = { 'prettier_d_slim', 'prettier_d', stop_after_first = true },
+        css = { 'prettier_d_slim', 'prettier_d', stop_after_first = true },
+        html = { 'prettier_d_slim', 'prettier_d', stop_after_first = true },
+        json = { 'prettier_d_slim', 'prettier_d', stop_after_first = true },
+        typescriptreact = { 'prettier_d_slim', 'prettier_d', stop_after_first = true },
+        javascriptreact = { 'prettier_d_slim', 'prettier_d', stop_after_first = true },
       },
     },
   },
