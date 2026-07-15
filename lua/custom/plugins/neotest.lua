@@ -12,6 +12,7 @@ return {
     'antoinemadec/FixCursorHold.nvim',
     'nvim-treesitter/nvim-treesitter',
     'nvim-neotest/neotest-jest',
+    'antoinemadec/FixCursorHold.nvim',
   },
   config = function()
     require('neotest').setup {
