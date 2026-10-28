@@ -37,6 +37,8 @@ vim.opt.signcolumn = 'yes'
 -- Decrease update time
 vim.opt.updatetime = 250
 
+vim.opt.shellcmdflag = '-ic'
+
 vim.opt.colorcolumn = '120'
 
 -- Decrease mapped sequence wait time
@@ -572,6 +574,10 @@ require('lazy').setup({
         else
           lsp_format_opt = 'fallback'
         end
+        -- Turn off "format on save" for C#.
+        if vim.bo[bufnr].filetype == 'cs' then
+          return
+        end
         return {
           timeout_ms = 2000,
           lsp_format = lsp_format_opt,
@@ -593,6 +599,7 @@ require('lazy').setup({
         json = { 'prettierd', 'prettier', stop_after_first = true },
         typescriptreact = { 'prettierd', 'prettier', stop_after_first = true },
         javascriptreact = { 'prettierd', 'prettier', stop_after_first = true },
+        cs = { 'csharpier' },
       },
     },
   },
