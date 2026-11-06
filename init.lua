@@ -816,6 +816,35 @@ require('lazy').setup({
       ---@diagnostic disable-next-line: missing-fields
       require('nvim-treesitter.configs').setup(opts)
 
+      -- Compat shim: nvim-treesitter `master` (frozen, supports nvim <= 0.11) expects
+      -- `match[id]` to be a single TSNode, but nvim 0.12+ passes a list of nodes.
+      -- Re-register its custom predicates/directives with handlers that unwrap the list.
+      if vim.fn.has 'nvim-0.12' == 1 then
+        local q = vim.treesitter.query
+        local add_predicate, add_directive = q.add_predicate, q.add_directive
+        local function wrap(handler)
+          return function(match, ...)
+            local normalized = {}
+            for id, nodes in pairs(match) do
+              normalized[id] = type(nodes) == 'table' and nodes[#nodes] or nodes
+            end
+            return handler(normalized, ...)
+          end
+        end
+        q.add_predicate = function(name, handler)
+          return add_predicate(name, wrap(handler), { force = true })
+        end
+        q.add_directive = function(name, handler)
+          return add_directive(name, wrap(handler), { force = true })
+        end
+        package.loaded['nvim-treesitter.query_predicates'] = nil
+        local ok, err = pcall(require, 'nvim-treesitter.query_predicates')
+        q.add_predicate, q.add_directive = add_predicate, add_directive
+        if not ok then
+          vim.notify('treesitter compat shim failed: ' .. err, vim.log.levels.WARN)
+        end
+      end
+
       -- There are additional nvim-treesitter modules that you can use to interact
       -- with nvim-treesitter. You should go explore a few and see what interests you:
       --
