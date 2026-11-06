@@ -1,4 +1,5 @@
 vim.g.loaded_netrwPlugin = 0
+vim.g.loaded_nvim_dir_plugin = 1
 
 vim.keymap.set('n', '<C-n>', '<cmd>Neotree toggle<CR>', { desc = '[S]earch [N]eovim files' })
 

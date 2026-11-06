@@ -10,7 +10,11 @@ return {
         if not vim.api.nvim_buf_get_name(args.buf):lower():find('claude', 1, true) then
           return
         end
-        vim.keymap.set('t', '<C-h>', '<C-\\><C-n><C-w>h', { buffer = args.buf, desc = 'Move focus to the left window' })
+        -- Windows Terminal sends Ctrl+Backspace as ^H, which is indistinguishable from <C-h>.
+        -- Forward it to Claude as ^W (delete word). Use <C-w>h to move to the left window instead.
+        vim.keymap.set('t', '<C-h>', function()
+          vim.api.nvim_chan_send(vim.b[args.buf].terminal_job_id, '\23')
+        end, { buffer = args.buf, desc = 'Delete word backward (Ctrl+Backspace)' })
         vim.keymap.set('n', '<C-h>', '<C-w>h', { buffer = args.buf, desc = 'Move focus to the left window' })
         -- Make <C-w> start a window command (e.g. <C-w>h) instead of deleting a word in Claude
         vim.keymap.set('t', '<C-w>', '<C-\\><C-n><C-w>', { buffer = args.buf, desc = 'Window command' })
